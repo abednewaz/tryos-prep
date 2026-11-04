@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<script>
+try{var _t=JSON.parse(localStorage.getItem("tryos-ui-v3")||"null");if(_t&&_t.theme==="light")document.documentElement.dataset.theme="light"}catch(e){}
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TRYOS Prep</title>
+<meta name="theme-color" content="#161410">
+<meta name="color-scheme" content="dark">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="TRYOS Prep">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="application-name" content="TRYOS Prep">
+<meta name="description" content="TR-YÖS math and IQ practice — Bangla, English, Türkçe">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#161410;--surface:#1e1b16;--raised:#27231c;--fg:#efe7d8;--muted:#9a9184;--subtle:#7c7468;--border:#3a342c;
+  --paper:#f4eee4;--ink:#1c1814;--ink-muted:#5f584e;--rule:#3a342c;
+  --sage:#9aaf8e;--sage-deep:#c5d4b8;--sage-soft:#2f382b;
+  --accent:#9aaf8e;--accent-fg:#14120e;--accent-2:#b4c4a8;
+  --ok:#3d5c3a;--ok-fg:#e4f0e0;--bad:#8a4540;--bad-fg:#f6e4e2;
+  --sans:"Outfit","Noto Sans Bengali",system-ui,sans-serif;
+  --display:"Fraunces","Outfit",Georgia,serif;
+  --radius-sm:8px;--radius-md:12px;--radius-lg:20px;--radius-xl:28px;
+  --fast:250ms;--quick:220ms;--medium:280ms;--ease:cubic-bezier(.25,1,.5,1);
+  --spring:cubic-bezier(.34,1.2,.64,1);
+  --shadow:0 24px 50px -28px rgba(0,0,0,.7);
+}
+html[data-theme="light"]{
+  --bg:#f3eee4;--surface:#faf6ef;--raised:#fffdf8;--fg:#1c1814;--muted:#655e54;--subtle:#8a8174;--border:#e0d5c4;
+  --paper:#fffdf8;--sage:#4f6846;--sage-deep:#314430;--sage-soft:#e3edd8;
+  --accent:#4f6846;--accent-fg:#f7f3ea;--accent-2:#3d5436;
+  --ok:#2c6a38;--ok-fg:#f4faf4;--bad:#8f3a36;--bad-fg:#fff6f5;
+  --shadow:0 18px 36px -26px rgba(70,48,24,.4);
+  color-scheme:light;
+}
+html[data-theme="dark"]{color-scheme:dark}
+html[data-theme="light"] header{background:color-mix(in oklab,var(--bg) 86%, white)}
+html[data-theme="light"] .bnav{background:color-mix(in oklab,var(--bg) 90%, white)}
+html[data-theme="light"] .cta.accent{background:linear-gradient(165deg,#e6f0de 0%, var(--raised) 68%);border-color:#c5d6b8}
+html[data-theme="light"] .mock-card{background:linear-gradient(165deg,#e7f0e0 0%, #f6f1e6 58%, #fffdf8 100%);border-color:#c5d6b8;color:var(--fg)}
+html[data-theme="light"] body:before{background:radial-gradient(circle,rgba(79,104,70,.16),transparent 68%)}
+html[data-theme="light"] body:after{background:radial-gradient(circle,rgba(186,142,78,.14),transparent 70%)}
+html[data-theme="light"] .grain{opacity:.07}
+html[data-theme="light"] .sk{background:linear-gradient(100deg,#efe7da 28%,#f8f3ea 46%,#efe7da 64%)}
+.tools{display:flex;align-items:center;gap:8px;margin-left:auto;flex:none}
+.theme{width:44px;height:44px;border-radius:999px;border:1px solid var(--border);background:var(--raised);display:grid;place-items:center;position:relative;color:var(--fg);flex:none;transition:transform 220ms var(--spring),background-color 250ms var(--ease),border-color 250ms var(--ease)}
+.theme:hover{transform:scale(1.04);border-color:var(--sage)}
+.theme svg{width:20px;height:20px;position:absolute;transition:opacity 220ms var(--ease),transform 260ms var(--ease)}
+html[data-theme="dark"] .theme .sun{opacity:1;transform:none}
+html[data-theme="dark"] .theme .moon{opacity:0;transform:rotate(-50deg) scale(.6)}
+html[data-theme="light"] .theme .sun{opacity:0;transform:rotate(50deg) scale(.6)}
+html[data-theme="light"] .theme .moon{opacity:1;transform:none}
+@media(max-width:480px){
+  .brand b{font-size:16px}
+  .langs{height:40px}
+  .langs button{min-width:34px;padding:0 7px;font-size:12px}
+  .theme{width:40px;height:40px}
+}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);-webkit-font-smoothing:antialiased;min-height:100dvh}
+body{position:relative;overflow-x:hidden}
+body:before,body:after{content:"";position:fixed;pointer-events:none;z-index:0;border-radius:50%;filter:blur(40px)}
+body:before{width:42vw;height:42vw;min-width:280px;min-height:280px;top:-12vw;right:-10vw;background:radial-gradient(circle,rgba(154,175,142,.22),transparent 68%);animation:drift 22s var(--ease) infinite alternate}
+body:after{width:36vw;height:36vw;min-width:240px;min-height:240px;bottom:-8vw;left:-12vw;background:radial-gradient(circle,rgba(154,122,72,.12),transparent 70%);animation:drift 28s var(--ease) infinite alternate-reverse}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(-4%,6%) scale(1.08)}}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.16;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.55'/></svg>")}
+:root{padding-top:env(safe-area-inset-top,0px)}
+h1,h2,h3{font-family:var(--display);font-weight:500;margin:0;text-wrap:balance;letter-spacing:-.03em}
+p{margin:0;text-wrap:pretty}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+button:disabled{cursor:default;opacity:.45}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px;position:relative;z-index:2}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;border-bottom:1px solid color-mix(in oklab,var(--fg) 10%, transparent);background:color-mix(in oklab,var(--bg) 78%, black);backdrop-filter:blur(16px)}
+header .row{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px;min-height:44px}
+.logo{width:44px;height:44px;border-radius:12px;display:block;flex:none;box-shadow:var(--shadow)}
+.brand b{font-family:var(--display);font-weight:500;font-size:20px;display:block;line-height:1}
+.brand small{display:none;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+@media(min-width:640px){.brand small{display:block}}
+.langs{display:inline-flex;height:44px;align-items:center;border:1px solid var(--border);border-radius:999px;padding:2px;background:var(--raised)}
+.langs button{height:100%;min-width:40px;padding:0 10px;border-radius:999px;font-size:13px;color:var(--muted);transition:background var(--quick) var(--ease),color var(--quick) var(--ease)}
+.langs button.on{background:var(--sage);color:var(--accent-fg)}
+.dnav{display:none;gap:4px;position:relative}
+@media(min-width:768px){.dnav{display:flex}}
+.dnav button{height:40px;padding:0 14px;border-radius:999px;font-size:14px;color:var(--muted);position:relative;z-index:1;transition:color var(--quick) var(--ease),background var(--quick) var(--ease)}
+.dnav button.on{background:transparent;color:var(--sage-deep)}
+.tab-ink{position:absolute;left:0;bottom:2px;height:2px;width:0;border-radius:99px;background:var(--sage);pointer-events:none;transition:transform 260ms var(--ease),width 260ms var(--ease),opacity 200ms var(--ease)}
+main{padding:28px 0 120px;position:relative;z-index:2}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:600}
+.muted{color:var(--muted);line-height:1.55}
+.page{font-size:clamp(32px,5vw,48px);line-height:1.08;margin-top:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:14px;background:var(--sage);color:var(--accent-fg);font-weight:600;transition:transform var(--quick) var(--ease),opacity var(--quick) var(--ease),box-shadow var(--fast) var(--ease);box-shadow:0 12px 28px -16px rgba(154,175,142,.45)}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:scale(.98)}
+.btn.outline,.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--border);box-shadow:none}
+.btn.gold{background:var(--sage);color:var(--accent-fg)}
+.back{display:inline-flex;align-items:center;min-height:44px;color:var(--muted);font-size:14px}
+.cta2{display:grid;gap:14px}
+@media(min-width:720px){.cta2{grid-template-columns:1fr 1fr}}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px;border-radius:var(--radius-xl);text-align:left;border:1px solid var(--border);background:var(--raised);min-height:108px;box-shadow:var(--shadow);transition:transform var(--fast) var(--ease),border-color var(--fast) var(--ease)}
+.cta:hover{border-color:color-mix(in oklab,var(--sage) 45%, var(--border));transform:translateY(-2px)}
+.cta .t{display:block;font-family:var(--display);font-size:28px;margin-top:4px}
+.cta.accent{background:linear-gradient(165deg,#2a3327 0%, var(--raised) 64%);border-color:#3d4a38}
+.tgrid{display:grid;gap:12px}
+@media(min-width:700px){.tgrid{grid-template-columns:1fr 1fr}}
+.tcard{display:flex;flex-direction:column;gap:8px;padding:18px;border:1px solid var(--border);background:var(--raised);border-radius:var(--radius-lg);text-align:left;min-height:120px;box-shadow:var(--shadow)}
+.tcard .top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;letter-spacing:.12em}
+.tcard h3{font-size:20px}
+.tcard p{color:var(--muted);font-size:14px;line-height:1.45}
+.tests-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{min-height:40px;padding:0 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface);font-size:13px;font-weight:600;transition:border-color var(--quick) var(--ease),background var(--quick) var(--ease),color var(--quick) var(--ease)}
+.chip:hover{border-color:var(--sage);background:var(--sage-soft);color:var(--sage-deep)}
+.math-split{display:grid;gap:20px}
+@media(min-width:900px){.math-split{grid-template-columns:1.35fr .85fr;align-items:start}}
+.mock-card{padding:24px;border-radius:var(--radius-xl);background:linear-gradient(165deg,#243024 0%,#1e1b16 52%,#27231c 100%);border:1px solid #3d4a38;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+@media(min-width:900px){.mock-card{position:sticky;top:88px}}
+.mock-card:before{content:"";position:absolute;right:-48px;top:-48px;width:190px;height:190px;border:22px solid color-mix(in oklab,var(--sage) 22%, transparent);border-radius:50%;animation:spin 36s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mock-card:after{content:"";position:absolute;left:18px;bottom:18px;width:72px;height:72px;border-radius:50%;border:1px dashed color-mix(in oklab,var(--sage) 40%, transparent)}
+.mock-card h2,.mock-card p,.mock-card .btn,.mock-card .eyebrow{position:relative;z-index:1}
+.mock-card h2{font-size:30px}
+.mock-card p{margin-top:10px}
+.mock-card .btn{margin-top:20px;width:100%}
+.hero-art{min-height:0;height:auto;border-radius:var(--radius-lg);margin-top:22px;position:relative;overflow:hidden;border:1px solid var(--border);padding:22px 22px 20px;background:radial-gradient(circle at 18% 40%, color-mix(in oklab,var(--sage) 18%, transparent), transparent 42%),radial-gradient(circle at 88% 80%, color-mix(in oklab,#d7c4a3 28%, transparent), transparent 46%),var(--raised)}
+.hero-art p{position:relative;z-index:1;max-width:640px;line-height:1.55}
+.hero-art .more{margin-top:12px}
+.hero-art .motto{margin-top:14px;font-weight:600;color:var(--fg)}
+.hero-art i{position:absolute;border:1px solid color-mix(in oklab,var(--sage) 28%, transparent);border-radius:50%;pointer-events:none}
+.hero-art i:first-child{width:160px;height:160px;left:-20px;top:-36px;animation:drift 16s var(--ease) infinite alternate}
+.hero-art i:last-child{width:90px;height:90px;right:24px;bottom:-18px;border-color:color-mix(in oklab,var(--fg) 16%, transparent);animation:drift 19s var(--ease) infinite alternate-reverse}
+.about-card{padding:28px;border-radius:var(--radius-xl);background:var(--raised);border:1px solid var(--border);max-width:560px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.about-card:before{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:color-mix(in oklab,var(--sage) 16%, transparent)}
+.about-card a{color:var(--sage)}
+.about-photo{width:148px;height:auto;border-radius:18px;display:block;position:relative;z-index:1;box-shadow:var(--shadow)}
+.qbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;font-size:13px;color:var(--muted)}
+.iqimg{display:block;width:100%;height:auto;max-height:min(34vh,420px);object-fit:contain;background:#fff;border-radius:8px}
+.iqpaper{padding:10px;background:var(--paper);border-radius:16px;overflow:auto;border:1px solid var(--rule);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center}
+.dock{position:sticky;bottom:calc(62px + env(safe-area-inset-bottom,0px));z-index:28;background:linear-gradient(180deg,transparent 0,var(--bg) 14px);padding-top:10px}
+.iqnav{position:static;display:flex;gap:8px;padding:8px 0 4px;background:transparent;margin-top:0}
+.iqnav .btn{flex:1;min-height:48px;font-size:16px}
+@media(min-width:768px){
+  .dock{bottom:0}
+  .iqimg{max-height:min(52vh,640px)}
+  .iqnav .btn{min-height:52px}
+}
+.iqopts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.iqopt{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;padding:10px 4px;border:1px solid var(--border);background:var(--raised);border-radius:12px;text-align:center;min-height:52px;position:relative;z-index:1;transition:transform 220ms var(--spring),background-color 250ms var(--ease),border-color 250ms var(--ease),color 250ms var(--ease)}
+@media(hover:hover){.iqopt:hover{transform:scale(1.03);border-color:var(--sage);z-index:2}}
+.iqopt:active{transform:scale(.98)}
+.iqopt.sel{border-color:var(--sage);background:var(--sage-soft);color:var(--fg);transform:scale(1.03)}
+.iqopt.ok{border-color:var(--ok);background:var(--ok);color:var(--ok-fg);animation:reward 260ms var(--ease)}
+.iqopt.no{border-color:var(--bad);background:var(--bad);color:var(--bad-fg)}
+@keyframes reward{0%{transform:scale(1)}45%{transform:scale(1.03)}100%{transform:scale(1)}}
+.iqopt .k{width:28px;height:28px;border:1px solid var(--border);border-radius:50%;display:grid;place-items:center;flex:none;font-weight:600}
+.iqopt span:last-child{font-size:10px;letter-spacing:.04em;min-height:1em}
+.iqprogress{height:7px;border-radius:999px;background:var(--border);overflow:hidden}.iqprogress>div{height:100%;background:var(--sage);transition:width var(--fast) var(--ease)}
+.timer{font-variant-numeric:tabular-nums;font-weight:600;color:var(--sage);font-size:14px}
+.ng{display:flex;flex-wrap:wrap;gap:6px}
+.ng button{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);font-size:12px;background:var(--raised)}
+.ng button.cur{background:var(--sage);color:var(--accent-fg);border-color:transparent}
+.ng button.ok{background:var(--ok);color:var(--ok-fg);border-color:transparent}
+.ng button.no{background:var(--bad);color:var(--bad-fg);border-color:transparent}
+.iqcard{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border:1px solid var(--border);background:var(--raised);border-radius:16px;text-align:left;width:100%;box-shadow:var(--shadow);transition:transform var(--fast) var(--ease),border-color var(--fast) var(--ease)}
+.iqcard:hover{transform:translateY(-1px);border-color:var(--sage)}
+.iqcard .status{font-size:12px;color:var(--muted)}
+.iqgrid{display:grid;gap:10px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{padding:14px 16px;border:1px solid var(--border);border-radius:16px;background:var(--raised);box-shadow:var(--shadow)}
+.stat p:last-child{font-size:22px;margin-top:4px;font-variant-numeric:tabular-nums}
+.mrow{display:flex;gap:10px;flex-wrap:wrap}
+.narrow{max-width:760px}
+.bnav{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;border-top:1px solid var(--border);background:color-mix(in oklab,var(--bg) 86%, black);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));backdrop-filter:blur(14px)}
+@media(min-width:768px){.bnav{display:none}}
+.bnav button{flex:1;min-height:52px;color:var(--muted);font-size:12px;position:relative;z-index:1;transition:color 220ms var(--ease)}
+.bnav button.on{color:var(--sage-deep);font-weight:600}
+.bnav .tab-ink{top:0;bottom:auto}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 260ms var(--ease),transform 260ms var(--ease);transition-delay:calc(var(--i,0)*42ms)}
+.reveal.in{opacity:1;transform:none}
+.sk{display:block;border-radius:14px;margin-top:12px;background:linear-gradient(100deg,var(--raised) 28%,#3a342c 46%,var(--raised) 64%);background-size:220% 100%;animation:shimmer 1.15s linear infinite}
+@keyframes shimmer{to{background-position:-220% 0}}
+.skel{animation:fadein 240ms var(--ease)}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.home-hero{padding:8px 0}
+.home-hero h1{font-size:clamp(40px,7vw,64px)}
+#acct{display:flex;align-items:center;position:relative}
+.acct{position:relative;display:flex;align-items:center;gap:8px}
+.signin-link{color:var(--muted);font-size:14px;min-height:44px;padding:0 8px}
+.signup-btn{min-height:40px;padding:0 14px;border-radius:999px;background:var(--sage);color:var(--accent-fg);font-weight:600;font-size:14px}
+.avatar-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);padding:0;overflow:hidden;background:var(--sage-soft);color:var(--sage-deep);display:grid;place-items:center}
+.avatar-btn .av,.ph{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--sage-soft);color:var(--sage-deep);font-size:12px;font-weight:600;object-fit:cover}
+.ph.lg{width:72px;height:72px;font-size:22px}
+.menu{position:absolute;right:0;top:calc(100% + 8px);min-width:196px;background:var(--raised);border:1px solid var(--border);border-radius:16px;padding:6px;box-shadow:var(--shadow);z-index:60}
+.menu button{display:block;width:100%;text-align:left;min-height:44px;padding:8px 12px;border-radius:10px}
+.menu button:hover,.menu button:focus-visible{background:var(--sage-soft)}
+.form{display:grid;gap:12px;margin-top:16px}
+.form label{display:grid;gap:6px;font-size:13px;color:var(--muted)}
+.form input,.form textarea{width:100%;min-height:48px;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--fg);font:inherit}
+.form textarea{min-height:120px;resize:vertical}
+.note{margin-top:8px;color:var(--muted);font-size:14px;line-height:1.5}
+.err{color:#e7b2ae;margin-top:10px}
+.okmsg{color:var(--sage-deep);margin-top:10px}
+.reviews-sec{margin-top:56px}
+.reviews-sec h2{font-family:var(--display);font-weight:500;font-size:clamp(28px,4vw,40px);letter-spacing:-.03em}
+.review-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.review-grid{display:grid;gap:12px;margin-top:16px}
+@media(min-width:800px){.review-grid{grid-template-columns:1fr 1fr}}
+.rcard{padding:16px;border:1px solid var(--border);border-radius:16px;background:var(--raised)}
+.who{display:flex;align-items:center;gap:10px;text-align:left;background:none;border:0;padding:0;color:inherit}
+.who b{display:block}
+.verified{display:inline-block;margin-left:6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage)}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
+@media(max-width:860px){.wide-auth{display:none}}
+@media(min-width:861px){.compact-auth{display:none}}
+@media(prefers-reduced-motion:reduce){
+  *,body:before,body:after,.hero-art i,.mock-card:before{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<header><div class="wrap row">
+  <button class="brand" id="brand" aria-label="Home"><img class="logo" src="/icons/icon-192.png" alt="" width="44" height="44"><span><b>TRYOS Prep</b><small>TR-YÖS</small></span></button>
+  <nav class="dnav" id="dnav"></nav>
+  <div class="tools">
+    <div class="langs" role="radiogroup" aria-label="Language" id="langs"></div>
+    <button class="theme" id="theme" type="button" data-theme-toggle="1" aria-label="Switch to light mode">
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5 5l1.6 1.6M17.4 17.4 19 19M19 5l-1.6 1.6M6.6 17.4 5 19"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.2 8.2 0 1 1 9.5 4 6.4 6.4 0 0 0 20 14.5z"/></svg>
+    </button>
+    <div id="acct"></div>
+  </div>
+</div></header>
+<main class="wrap" id="app"></main>
+<nav class="bnav" id="bnav"></nav>
+<div id="layer"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.js"></script>
+<script src="/supabase-config.js"></script>
+<script src="/auth.js"></script>
+<script>
+const LANGS=[["bn","বাং"],["en","EN"],["tr","TR"]];
+const UI={
+  en:{app:"TRYOS Prep",home:"Home",math:"Math",iq:"IQ",about:"About Us",back:"Back",
+    whatPractice:"TRYÖS Prep is a practice platform dedicated to TRYÖS aspirants, designed to help students to improve their mathematical, IQ skills, and prepare for the exam with confidence.",
+    homeMore:"Explore chapter-wise practice sessions, judge yourself with mock tests, and identify areas where you can improve.",
+    homeMotto:"Practice more and more. No pain, no gain 💪",
+    chapterLead:"Chapter-wise practice is here. Scroll down and start the drill.",
+    mockAsk:"Ready for a full paper?", mockBlurb:"Random questions from every chapter. No instant answers — review after you finish.",
+    startMock:"Start mock test", mockTitle:"Math Model Tests", mockSection:"Model tests",
+    questions:"Questions", test:"Test", type:"Type", time:"Time",
+    next:"Next", prev:"Previous", finish:"Finish", review:"Review", restart:"Restart",
+    result:"Result", correct:"Correct", wrong:"Wrong", unanswered:"Unanswered", score:"Score",
+    aboutName:"Abed Newaz", aboutRole:"TR-YÖS Examinee (2026)", aboutMail:"the.abednewaz@gmail.com",
+    aboutBody:"Hi there, this is Abed. I participated in the TRYÖS exam in 2026, and through my own preparation journey, I came to understand the challenges students face when looking for structured and accessible practice resources.",
+    aboutBody2:"This experience inspired me to develop TRYÖS Prep. I hope this initiative will support TRYÖS aspirants in their preparation. Thanks for your support.",
+    empty:"Questions are still loading.", notReady:"This test is not prepared yet.",
+    signIn:"Sign in",signUp:"Sign up",logOut:"Log out",myProfile:"My profile",accountSettings:"Account settings",myReviews:"My reviews",
+    email:"Email",password:"Password",confirmPassword:"Confirm password",displayName:"Display name",forgot:"Forgot password?",sendReset:"Send reset link",newPassword:"New password",
+    save:"Save",cancel:"Cancel",changeEmail:"Change email",changePassword:"Change password",profile:"Profile",community:"Community",reviewsTitle:"Community reviews",
+    writeReview:"Write a review",reviewPlaceholder:"Your review",editReview:"Save review",deleteReview:"Delete review",loadMore:"Load more",noReviews:"No reviews yet.",
+    memberSince:"Joined",verified:"Verified",accountStatus:"Account",emailHint:"The new address replaces this one only after you open the confirmation email.",
+    passwordHint:"Enter your current password, then a new one.",authNeedConfig:"Accounts need a Supabase URL and anon key. See SUPABASE_SETUP.md in the project.",
+    checkEmail:"Check your inbox and confirm your email before signing in.",resetSent:"If that inbox can receive mail, a reset link is on its way.",
+    signedIn:"You are signed in.",weakPassword:"Use at least 8 characters.",mismatch:"Passwords do not match.",tooLong:"Keep the review within 500 characters.",
+    nameRule:"Use 2–32 letters, numbers, spaces, or underscores.",nameTaken:"That display name is already used.",avatar:"Profile photo",
+    avatarInvalid:"Use a JPG, PNG, or WebP under 2 MB.",saved:"Saved.",emailSent:"Check the new inbox to confirm the change.",passwordSaved:"Password updated.",
+    reviewSaved:"Review saved.",reviewDeleted:"Review deleted.",wait:"Please wait a few seconds and try again.",needSignIn:"Sign in to continue.",
+    needAccount:"New here?",haveAccount:"Already have an account?",createAccount:"Create account",accountMenu:"Account",
+    resetNeedLink:"Open the reset link from your email on this device.",deleteAsk:"Delete your review?",loading:"Loading…"},
+  bn:{app:"TRYOS Prep",home:"হোম",math:"গণিত",iq:"IQ",about:"আমাদের কথা",back:"ফিরে",
+    whatPractice:"TRYÖS Prep হলো TRYÖS পরীক্ষার্থীদের জন্য একটি প্র্যাকটিস প্ল্যাটফর্ম। এটি শিক্ষার্থীদের গণিত ও IQ দক্ষতা বাড়াতে এবং আত্মবিশ্বাসের সাথে পরীক্ষার প্রস্তুতি নিতে সাহায্য করে।",
+    homeMore:"অধ্যায়ভিত্তিক অনুশীলন করো, মক টেস্টে নিজেকে যাচাই করো, এবং যেখানে উন্নতি দরকার সেটা চিনে নাও।",
+    homeMotto:"আরও বেশি অনুশীলন করো। No pain, no gain 💪",
+    chapterLead:"অধ্যায়ভিত্তিক অনুশীলন এখানে। নিচে স্ক্রল করে ড্রিল শুরু করো।",
+    mockAsk:"পূর্ণ মক দিতে চাও?", mockBlurb:"প্রতি অধ্যায় থেকে প্রশ্ন। সাথে সাথে উত্তর নেই — শেষে রিভিউ।",
+    startMock:"মক শুরু", mockTitle:"গণিত মডেল টেস্ট", mockSection:"মডেল টেস্ট",
+    questions:"প্রশ্ন", test:"টেস্ট", type:"ধরন", time:"সময়",
+    next:"পরের", prev:"আগের", finish:"শেষ", review:"রিভিউ", restart:"আবার",
+    result:"ফলাফল", correct:"সঠিক", wrong:"ভুল", unanswered:"ফাঁকা", score:"স্কোর",
+    aboutName:"Abed Newaz", aboutRole:"TR-YÖS Examinee (2026)", aboutMail:"the.abednewaz@gmail.com",
+    aboutBody:"হ্যালো, আমি Abed। ২০২৬ সালের TRYÖS পরীক্ষায় অংশ নিয়েছি। নিজের প্রস্তুতির পথে বুঝেছি, শিক্ষার্থীরা গুছানো ও সহজলভ্য অনুশীলন খুঁজতে কত চ্যালেঞ্জের মুখে পড়ে।",
+    aboutBody2:"এই অভিজ্ঞতা থেকেই TRYÖS Prep তৈরি করেছি। আশা করি এটি TRYÖS পরীক্ষার্থীদের প্রস্তুতিতে সাহায্য করবে। সমর্থনের জন্য ধন্যবাদ।",
+    empty:"প্রশ্ন লোড হচ্ছে।", notReady:"এই টেস্ট এখনো তৈরি নয়।",
+    signIn:"প্রবেশ",signUp:"নিবন্ধন",logOut:"বের হও",myProfile:"আমার প্রোফাইল",accountSettings:"অ্যাকাউন্ট সেটিংস",myReviews:"আমার রিভিউ",
+    email:"ইমেইল",password:"পাসওয়ার্ড",confirmPassword:"পাসওয়ার্ড আবার",displayName:"নাম",forgot:"পাসওয়ার্ড ভুলে গেছ?",sendReset:"রিসেট লিংক পাঠাও",newPassword:"নতুন পাসওয়ার্ড",
+    save:"সেভ",cancel:"বাতিল",changeEmail:"ইমেইল বদলাও",changePassword:"পাসওয়ার্ড বদলাও",profile:"প্রোফাইল",community:"কমিউনিটি",reviewsTitle:"কমিউনিটি রিভিউ",
+    writeReview:"রিভিউ লেখো",reviewPlaceholder:"তোমার রিভিউ",editReview:"রিভিউ সেভ",deleteReview:"রিভিউ মুছো",loadMore:"আরও দেখাও",noReviews:"এখনো কোনো রিভিউ নেই।",
+    memberSince:"যোগদান",verified:"নিশ্চিত",accountStatus:"অ্যাকাউন্ট",emailHint:"নতুন ইমেইলে নিশ্চিতকরণ লিংক খুললে তবেই ঠিকানা বদলাবে।",
+    passwordHint:"আগের পাসওয়ার্ড দাও, তারপর নতুনটি।",authNeedConfig:"অ্যাকাউন্ট চালু করতে Supabase URL ও anon key লাগবে। SUPABASE_SETUP.md দেখো।",
+    checkEmail:"ইনবক্স দেখে ইমেইল নিশ্চিত করো, তারপর প্রবেশ করো।",resetSent:"ইনবক্স মেইল নিতে পারলে রিসেট লিংক যাবে।",
+    signedIn:"তুমি প্রবেশ করেছ।",weakPassword:"কমপক্ষে ৮ অক্ষর দাও।",mismatch:"পাসওয়ার্ড মিলছে না।",tooLong:"রিভিউ ৫০০ অক্ষরের মধ্যে রাখো।",
+    nameRule:"২–৩২ অক্ষর: অক্ষর, সংখ্যা, স্পেস বা আন্ডারস্কোর।",nameTaken:"এই নাম আগেই আছে।",avatar:"প্রোফাইল ছবি",
+    avatarInvalid:"২ এমবির কম JPG, PNG বা WebP দাও।",saved:"সেভ হয়েছে।",emailSent:"নতুন ইনবক্স দেখে নিশ্চিত করো।",passwordSaved:"পাসওয়ার্ড বদলেছে।",
+    reviewSaved:"রিভিউ সেভ হয়েছে।",reviewDeleted:"রিভিউ মুছেছে।",wait:"কয়েক সেকেন্ড পর আবার চেষ্টা করো।",needSignIn:"এগোতে প্রবেশ করো।",
+    needAccount:"নতুন?",haveAccount:"আগে থেকে অ্যাকাউন্ট আছে?",createAccount:"অ্যাকাউন্ট খোলো",accountMenu:"অ্যাকাউন্ট",
+    resetNeedLink:"ইমেইলের রিসেট লিংক এই ডিভাইসে খোলো।",deleteAsk:"রিভিউ মুছবে?",loading:"লোড হচ্ছে…"},
+  tr:{app:"TRYOS Prep",home:"Ana sayfa",math:"Matematik",iq:"IQ",about:"Hakkımızda",back:"Geri",
+    whatPractice:"TRYÖS Prep, TRYÖS adayları için hazırlanmış bir çalışma platformudur. Öğrencilerin matematik ve IQ becerilerini geliştirmesine ve sınava güvenle hazırlanmasına yardımcı olmak için tasarlandı.",
+    homeMore:"Konu konu alıştırmaları dene, denemelerle kendini ölç ve geliştirebileceğin yerleri gör.",
+    homeMotto:"Daha çok çalış. No pain, no gain 💪",
+    chapterLead:"Konu konu alıştırma burada. Aşağı kaydır ve teste başla.",
+    mockAsk:"Denemeye hazır mısın?", mockBlurb:"Her konudan soru. Anında cevap yok — bitince inceleme.",
+    startMock:"Denemeyi başlat", mockTitle:"Matematik Model Testleri", mockSection:"Model testler",
+    questions:"Soru", test:"Test", type:"Tür", time:"Süre",
+    next:"İleri", prev:"Geri", finish:"Bitir", review:"İncele", restart:"Yeniden",
+    result:"Sonuç", correct:"Doğru", wrong:"Yanlış", unanswered:"Boş", score:"Puan",
+    aboutName:"Abed Newaz", aboutRole:"TR-YÖS Examinee (2026)", aboutMail:"the.abednewaz@gmail.com",
+    aboutBody:"Merhaba, ben Abed. 2026 TRYÖS sınavına katıldım. Kendi hazırlık sürecimde öğrencilerin düzenli ve ulaşılabilir kaynak ararken yaşadığı zorlukları gördüm.",
+    aboutBody2:"Bu deneyim beni TRYÖS Prep'i geliştirmeye yöneltti. Umarım bu çalışma TRYÖS adaylarının hazırlığına destek olur. Desteğiniz için teşekkürler.",
+    empty:"Sorular yükleniyor.", notReady:"Bu test henüz hazır değil.",
+    signIn:"Giriş",signUp:"Kayıt ol",logOut:"Çıkış",myProfile:"Profilim",accountSettings:"Hesap ayarları",myReviews:"Yorumlarım",
+    email:"E-posta",password:"Şifre",confirmPassword:"Şifre tekrar",displayName:"Görünen ad",forgot:"Şifreni mi unuttun?",sendReset:"Sıfırlama bağlantısı gönder",newPassword:"Yeni şifre",
+    save:"Kaydet",cancel:"Vazgeç",changeEmail:"E-postayı değiştir",changePassword:"Şifreyi değiştir",profile:"Profil",community:"Topluluk",reviewsTitle:"Topluluk yorumları",
+    writeReview:"Yorum yaz",reviewPlaceholder:"Yorumun",editReview:"Yorumu kaydet",deleteReview:"Yorumu sil",loadMore:"Daha fazla",noReviews:"Henüz yorum yok.",
+    memberSince:"Katıldı",verified:"Doğrulandı",accountStatus:"Hesap",emailHint:"Yeni adres, onay e-postasını açınca değişir.",
+    passwordHint:"Önce mevcut şifreni, sonra yenisini yaz.",authNeedConfig:"Hesaplar için Supabase URL ve anon key gerekir. SUPABASE_SETUP.md dosyasına bak.",
+    checkEmail:"Gelen kutunu kontrol et ve e-postayı onayla, sonra giriş yap.",resetSent:"Bu kutu posta alabiliyorsa sıfırlama bağlantısı yolda.",
+    signedIn:"Giriş yaptın.",weakPassword:"En az 8 karakter kullan.",mismatch:"Şifreler aynı değil.",tooLong:"Yorum 500 karakteri geçmesin.",
+    nameRule:"2–32 karakter: harf, sayı, boşluk veya alt çizgi.",nameTaken:"Bu ad kullanılıyor.",avatar:"Profil fotoğrafı",
+    avatarInvalid:"2 MB altı JPG, PNG veya WebP kullan.",saved:"Kaydedildi.",emailSent:"Değişiklik için yeni gelen kutusunu onayla.",passwordSaved:"Şifre güncellendi.",
+    reviewSaved:"Yorum kaydedildi.",reviewDeleted:"Yorum silindi.",wait:"Birkaç saniye bekleyip yeniden dene.",needSignIn:"Devam etmek için giriş yap.",
+    needAccount:"Yeni misin?",haveAccount:"Hesabın var mı?",createAccount:"Hesap oluştur",accountMenu:"Hesap",
+    resetNeedLink:"E-postadaki sıfırlama bağlantısını bu cihazda aç.",deleteAsk:"Yorumun silinsin mi?",loading:"Yükleniyor…"},
+};
+const $ = s => document.querySelector(s);
+const ESCMAP={"&":"\u0026amp;","<":"\u0026lt;",">":"\u0026gt;","\"":"\u0026quot;","'":"\u0026#39;"};
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>ESCMAP[c]);
+let S={lang:"en",theme:"dark"};
+try{const r=JSON.parse(localStorage.getItem("tryos-ui-v3")||"null");if(r&&r.lang)S.lang=r.lang;if(r&&(r.theme==="light"||r.theme==="dark"))S.theme=r.theme}catch(e){}
+function applyTheme(){
+  const theme=S.theme==="light"?"light":"dark";
+  S.theme=theme;
+  document.documentElement.dataset.theme=theme;
+  const meta=document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.setAttribute("content", theme==="light"?"#f3eee4":"#161410");
+  const btn=$("#theme");
+  if(btn){
+    const toLight=theme==="dark";
+    btn.setAttribute("aria-label", toLight?"Switch to light mode":"Switch to dark mode");
+    btn.setAttribute("aria-pressed", theme==="dark"?"true":"false");
+  }
+}
+function save(){try{localStorage.setItem("tryos-ui-v3",JSON.stringify(S))}catch(e){}}
+const tx=()=>UI[S.lang]||UI.en;
+let route={name:"home"};
+const AUTH_PATHS={"/login":"authSignIn","/signup":"authSignUp","/forgot-password":"authForgot","/reset-password":"authReset","/account":"account","/profile":"profile","/reviews":"myReviews"};
+if(AUTH_PATHS[location.pathname]) route={name:AUTH_PATHS[location.pathname]};
+function go(name,p={}){
+  route={name,...p};
+  const path=Object.keys(AUTH_PATHS).find(k=>AUTH_PATHS[k]===name) || "/";
+  if(location.pathname!==path) history.pushState({name}, "", path);
+  window.scrollTo(0,0);
+  render();
+}
+
+/* IQ */
+let IQ_TESTS={}; let IQ_STATE={tests:{}};
+async function loadIQ(){
+  try{await Promise.all(Array.from({length:11},async(_,i)=>{const n=i+1;const r=await fetch(`/iq/test${n}.json`,{cache:"no-store"});if(r.ok)IQ_TESTS[n]=await r.json();}));}catch(e){}
+  try{const r=JSON.parse(localStorage.getItem("tryos-iq-v2")||"null");if(r&&typeof r==="object")IQ_STATE=r;}catch(e){}
+  if(!IQ_STATE.tests||typeof IQ_STATE.tests!=="object")IQ_STATE.tests={};
+}
+function saveIQ(){try{localStorage.setItem("tryos-iq-v2",JSON.stringify(IQ_STATE))}catch(e){}}
+function iqTestStatus(n){const t=IQ_STATE.tests[n];if(!t)return "Not started";if(t.completed)return "Completed";return "In progress"}
+function iqTestData(n){return IQ_TESTS[n]||null}
+function iqGet(n){if(!IQ_STATE.tests[n])IQ_STATE.tests[n]={index:0,picks:{},completed:false};return IQ_STATE.tests[n]}
+function iqScore(n){const d=iqTestData(n),st=iqGet(n);let correct=0,wrong=0;if(d)for(const q of d.questions){const p=st.picks[q.originalId];if(!p)continue;if(p===q.answer)correct++;else wrong++;}return {score:correct,correct,wrong,unanswered:d?d.questions.length-Object.keys(st.picks).length:0}}
+function iqQuizView(n){
+ const d=iqTestData(n),st=iqGet(n);if(!d)return `<div class="narrow"><button class="back" data-go="iqTests">← Model Tests</button><h1 class="page" style="margin-top:24px">Not prepared</h1></div>`;
+ const i=Math.max(0,Math.min(st.index,d.questions.length-1)),q=d.questions[i],pick=st.picks[q.originalId]||null,answered=Object.keys(st.picks).length,pct=Math.round(answered/d.questions.length*100);
+ const last=i===d.questions.length-1;
+ const nav=`<div class="iqnav"><button class="btn outline" data-iqprev="1" ${i===0?"disabled":""}>‹ Previous</button><button class="btn" data-iqnext="1">${last?"Finish ✓":"Next ›"}</button></div>`;
+ return `<div class="narrow"><div class="qbar"><button class="back" data-iqback="1">‹ Exit</button><span>Model Test ${n} · ${i+1}/${d.questions.length}</span></div><div class="iqprogress"><div style="width:${pct}%"></div></div><article style="margin-top:14px"><div class="iqpaper"><img class="iqimg" src="/iq/img${n}/${q.originalId}.jpg" alt="IQ Question ${q.originalId}" loading="eager"></div><div class="dock"><div class="iqopts">${["A","B","C","D","E"].map(k=>`<button class="iqopt ${pick===k?"sel":""}" data-iqopt="${k}"><span class="k">${k}</span><span>${pick===k?"Selected":""}</span></button>`).join("")}</div>${nav}</div></article></div>`;
+}
+function iqResultView(n){const d=iqTestData(n),r=iqScore(n);return `<div class="narrow"><button class="back" data-go="iqTests">← Model Tests</button><p class="eyebrow" style="margin-top:24px">IQ · Model Test ${n}</p><h1 class="page">Result</h1><div class="stats" style="margin-top:24px"><div class="stat"><p class="eyebrow">Score</p><p>${r.score}/${d.questions.length}</p></div><div class="stat"><p class="eyebrow">Correct</p><p>${r.correct}</p></div><div class="stat"><p class="eyebrow">Wrong</p><p>${r.wrong}</p></div><div class="stat"><p class="eyebrow">Unanswered</p><p>${r.unanswered}</p></div></div><div class="mrow" style="margin-top:24px"><button class="btn" data-iqreview="1">Review Answers</button><button class="btn ghost" data-iqrestart="1">Restart Test</button></div></div>`}
+function iqReviewView(n){
+ const d=iqTestData(n),st=iqGet(n);if(!d)return `<div class="narrow"><button class="back" data-go="iqTests">← Model Tests</button><h1 class="page" style="margin-top:24px">Not prepared</h1></div>`;
+ if(st.reviewIndex==null)st.reviewIndex=0;
+ const i=Math.max(0,Math.min(st.reviewIndex,d.questions.length-1));
+ const q=d.questions[i],p=st.picks[q.originalId]||null,ok=p===q.answer;
+ const status=!p?"Unanswered":(ok?"Correct":"Wrong");
+ const sc=ok?"var(--ok-fg)":(!p?"var(--muted)":"var(--bad-fg)");
+ const opts=["A","B","C","D","E"].map(k=>{
+   const isA=k===q.answer,sel=p===k;
+   const cls=["iqopt",isA?"ok":"",sel&&!isA?"no":""].filter(Boolean).join(" ");
+   const lab=isA?"Correct answer":(sel?"Your answer":"");
+   return `<div class="${cls}"><span class="k">${k}</span><span>${lab}</span></div>`;
+ }).join("");
+ const jumps=d.questions.map((qq,j)=>{
+   const pp=st.picks[qq.originalId],okk=pp===qq.answer;
+   const c=j===i?"cur":(pp?(okk?"ok":"no"):"");
+   return `<button data-iqrevjump="${j}" class="${c}">${j+1}</button>`;
+ }).join("");
+ return `<div class="narrow"><div class="qbar"><button class="back" data-go="iqResult">‹ Result</button><span>Review · Test ${n} · ${i+1}/${d.questions.length}</span></div>
+ <p style="margin-top:10px;font-weight:700;color:${sc}">${status}${p?` · you chose ${p}`:""} · correct ${q.answer}</p>
+ <article style="margin-top:14px"><div class="iqpaper"><img class="iqimg" src="/iq/img${n}/${q.originalId}.jpg" alt="IQ Question ${q.originalId}" loading="eager"></div>
+ <div class="dock"><div class="iqopts">${opts}</div>
+ <div class="ng" style="margin-top:16px">${jumps}</div>
+ <div class="iqnav"><button class="btn outline" data-iqrevprev="1" ${i===0?"disabled":""}>‹ Previous</button><button class="btn" data-iqrevnext="1">${i===d.questions.length-1?"Back to result":"Next ›"}</button></div></div></article></div>`;
+}
+
+/* MATH */
+let MATH={chapters:[],mocks:[]};
+let M_STATE={drills:{},tests:{}};
+async function loadMATH(){
+  try{const r=await fetch("/math/bank.json",{cache:"no-store"});if(r.ok)MATH=await r.json();}catch(e){}
+  try{const r=JSON.parse(localStorage.getItem("tryos-math-v1")||"null");if(r)M_STATE=r;}catch(e){}
+  if(!M_STATE.drills)M_STATE.drills={}; if(!M_STATE.tests)M_STATE.tests={};
+}
+function saveM(){try{localStorage.setItem("tryos-math-v1",JSON.stringify(M_STATE))}catch(e){}}
+function chById(id){return (MATH.chapters||[]).find(c=>c.id===id)}
+function drillKey(ch,tn){return ch+"-"+tn}
+function drillGet(ch,tn){const k=drillKey(ch,tn);if(!M_STATE.drills[k])M_STATE.drills[k]={index:0,picks:{},times:{},revealed:{},completed:false,qStart:Date.now()};return M_STATE.drills[k]}
+function mockData(n){return (MATH.mocks||[]).find(m=>m.n===n)}
+function mockGet(n){if(!M_STATE.tests[n])M_STATE.tests[n]={index:0,picks:{},completed:false};return M_STATE.tests[n]}
+function fmtTime(ms){const s=Math.max(0,Math.round((ms||0)/1000));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+function chapterName(c){return S.lang==="tr"?c.tr:c.en}
+
+function mathDrillView(ch,tn){
+  const t=tx(),c=chById(ch); if(!c) return `<p class="muted">${esc(t.empty)}</p>`;
+  const test=c.tests.find(x=>x.n===tn); if(!test) return `<p class="muted">${esc(t.notReady)}</p>`;
+  const st=drillGet(ch,tn); const qs=test.questions;
+  const i=Math.max(0,Math.min(st.index,qs.length-1)); const q=qs[i];
+  if(!st.qStart) st.qStart=Date.now();
+  const pick=st.picks[q.id]||null, rev=!!st.revealed[q.id];
+  const live=rev?(st.times[q.id]||0):(Date.now()-st.qStart);
+  const pct=Math.round(Object.keys(st.picks).length/qs.length*100);
+  const last=i===qs.length-1;
+  const opts=["A","B","C","D","E"].map(k=>{
+    let cls="iqopt";
+    if(rev){ if(k===q.answer) cls+=" ok"; else if(pick===k) cls+=" no"; }
+    else if(pick===k) cls+=" sel";
+    const lab=rev?(k===q.answer?"Correct":(pick===k?"Your answer":"")):(pick===k?"Selected":"");
+    return `<button class="${cls}" data-mdropt="${k}"><span class="k">${k}</span><span>${lab}</span></button>`;
+  }).join("");
+  return `<div class="narrow"><div class="qbar"><button class="back" data-go="mathHome">‹ ${esc(t.back)}</button>
+    <span>${esc(chapterName(c))} · ${esc(t.test)} ${tn} · ${i+1}/${qs.length}</span>
+    <span class="timer" id="liveTimer">${fmtTime(live)}</span></div>
+    <div class="iqprogress"><div style="width:${pct}%"></div></div>
+    <p class="muted" style="margin-top:8px">${esc(test.type||"")}</p>
+    <article style="margin-top:12px"><div class="iqpaper"><img class="iqimg" src="/math/img/${q.file}" alt="Q${q.q}"></div>
+    <div class="dock"><div class="iqopts" style="margin-top:12px">${opts}</div>
+    <div class="iqnav"><button class="btn outline" data-mdrprev="1" ${i===0?"disabled":""}>‹ ${esc(t.prev)}</button>
+    <button class="btn" data-mdrnext="1">${last?esc(t.finish):esc(t.next)+" ›"}</button></div></div></article></div>`;
+}
+
+function mathMockQuiz(n){
+  const t=tx(),d=mockData(n),st=mockGet(n); if(!d) return `<div class="narrow"><button class="back" data-go="mathMocks">← ${esc(t.mockTitle)}</button><h1 class="page">${esc(t.notReady)}</h1></div>`;
+  const i=Math.max(0,Math.min(st.index,d.questions.length-1)),q=d.questions[i],pick=st.picks[q.id]||null;
+  const pct=Math.round(Object.keys(st.picks).length/d.questions.length*100), last=i===d.questions.length-1;
+  return `<div class="narrow"><div class="qbar"><button class="back" data-go="mathMocks">‹ Exit</button><span>Math Model ${n} · ${i+1}/${d.questions.length}</span></div>
+    <div class="iqprogress"><div style="width:${pct}%"></div></div>
+    <article style="margin-top:14px"><div class="iqpaper"><img class="iqimg" src="/math/img/${q.file}" alt=""></div>
+    <div class="dock"><div class="iqopts">${["A","B","C","D","E"].map(k=>`<button class="iqopt ${pick===k?"sel":""}" data-mmopt="${k}"><span class="k">${k}</span><span>${pick===k?"Selected":""}</span></button>`).join("")}</div>
+    <div class="iqnav"><button class="btn outline" data-mmprev="1" ${i===0?"disabled":""}>‹ ${esc(t.prev)}</button>
+    <button class="btn" data-mmnext="1">${last?esc(t.finish)+" ✓":esc(t.next)+" ›"}</button></div></div></article></div>`;
+}
+function mathMockScore(n){const d=mockData(n),st=mockGet(n);let c=0,w=0;if(d)for(const q of d.questions){const p=st.picks[q.id];if(!p)continue;if(p===q.answer)c++;else w++;}return {score:c,correct:c,wrong:w,unanswered:d?d.questions.length-Object.keys(st.picks).length:0}}
+function mathMockResult(n){const t=tx(),d=mockData(n),r=mathMockScore(n);return `<div class="narrow"><button class="back" data-go="mathMocks">← ${esc(t.mockTitle)}</button><p class="eyebrow" style="margin-top:24px">Math · Model ${n}</p><h1 class="page">${esc(t.result)}</h1>
+  <div class="stats" style="margin-top:24px"><div class="stat"><p class="eyebrow">${esc(t.score)}</p><p>${r.score}/${d.questions.length}</p></div>
+  <div class="stat"><p class="eyebrow">${esc(t.correct)}</p><p>${r.correct}</p></div>
+  <div class="stat"><p class="eyebrow">${esc(t.wrong)}</p><p>${r.wrong}</p></div>
+  <div class="stat"><p class="eyebrow">${esc(t.unanswered)}</p><p>${r.unanswered}</p></div></div>
+  <div class="mrow" style="margin-top:24px"><button class="btn" data-mmreview="1">${esc(t.review)}</button><button class="btn ghost" data-mmrestart="1">${esc(t.restart)}</button></div></div>`}
+function mathMockReview(n){
+  const t=tx(),d=mockData(n),st=mockGet(n); if(!d) return "";
+  if(st.reviewIndex==null)st.reviewIndex=0;
+  const i=Math.max(0,Math.min(st.reviewIndex,d.questions.length-1)); const q=d.questions[i],p=st.picks[q.id]||null,ok=p===q.answer;
+  const status=!p?t.unanswered:(ok?t.correct:t.wrong);
+  const opts=["A","B","C","D","E"].map(k=>{
+    const isA=k===q.answer,sel=p===k;
+    return `<div class="iqopt ${isA?"ok":""} ${sel&&!isA?"no":""}"><span class="k">${k}</span><span>${isA?"Correct answer":(sel?"Your answer":"")}</span></div>`;
+  }).join("");
+  const jumps=d.questions.map((qq,j)=>{const pp=st.picks[qq.id],okk=pp===qq.answer;return `<button data-mmrevjump="${j}" class="${j===i?"cur":(pp?(okk?"ok":"no"):"")}">${j+1}</button>`}).join("");
+  return `<div class="narrow"><div class="qbar"><button class="back" data-go="mathMockResult">‹ ${esc(t.result)}</button><span>Review · ${i+1}/${d.questions.length}</span></div>
+    <p style="margin-top:10px;font-weight:700">${esc(status)}${p?` · ${p}`:""} · ${q.answer}</p>
+    <article style="margin-top:14px"><div class="iqpaper"><img class="iqimg" src="/math/img/${q.file}" alt=""></div>
+    <div class="dock"><div class="iqopts">${opts}</div><div class="ng" style="margin-top:16px">${jumps}</div>
+    <div class="iqnav"><button class="btn outline" data-mmrevprev="1" ${i===0?"disabled":""}>‹ ${esc(t.prev)}</button>
+    <button class="btn" data-mmrevnext="1">${i===d.questions.length-1?esc(t.result):esc(t.next)+" ›"}</button></div></div></article></div>`;
+}
+
+let loaded=false;
+function skeletons(n){
+  const rows=Array.from({length:n},(_,i)=>`<span class="sk" style="height:${i===0?22:76}px;width:${i===0?"38%":"100%"}"></span>`).join("");
+  return `<div class="skel" aria-busy="true" aria-label="Loading">${rows}</div>`;
+}
+const views={
+  home(){
+    const t=tx();
+    return `<div class="home-hero"><p class="eyebrow">TR-YÖS</p>
+      <h1>TRYÖS Prep</h1>
+      <div class="hero-art">
+        <p>${esc(t.whatPractice)}</p>
+        <p class="muted more">${esc(t.homeMore)}</p>
+        <p class="motto">${esc(t.homeMotto)}</p>
+        <i></i><i></i>
+      </div></div>
+      <div class="cta2" style="margin-top:28px">
+        <button class="cta accent" data-go="mathHome"><span><span class="eyebrow">${esc(t.math)}</span><span class="t">${esc(t.math)}</span></span><span>→</span></button>
+        <button class="cta" data-go="iq"><span><span class="eyebrow">${esc(t.iq)}</span><span class="t">IQ</span></span><span>→</span></button>
+      </div>
+      ${window.TRYOSAuth ? TRYOSAuth.reviewsSection() : ""}`;
+  },
+  mathHome(){
+    const t=tx();
+    if(!loaded) return `<p class="eyebrow">TR-YÖS · ${esc(t.math)}</p><h1 class="page">${esc(t.math)}</h1>${skeletons(6)}`;
+    const cards=(MATH.chapters||[]).map(c=>{
+      const nq=c.tests.reduce((a,x)=>a+x.questions.length,0);
+      const chips=c.tests.map(ts=>`<button class="chip" data-mdrill="${c.id}:${ts.n}">${esc(t.test)} ${ts.n}</button>`).join("");
+      return `<article class="tcard"><div class="top"><span>${String(c.id).padStart(2,"0")}</span><span>${nq} ${esc(t.questions)}</span></div>
+        <h3>${esc(chapterName(c))}</h3>
+        <p>${c.tests.length} ${esc(t.test)}${c.tests.length>1?"s":""}</p>
+        <div class="tests-row">${chips||`<span class="muted">${esc(t.notReady)}</span>`}</div></article>`;
+    }).join("");
+    return `<button class="back" data-go="home">← ${esc(t.back)}</button>
+      <div class="math-split" style="margin-top:18px">
+        <div>
+          <p class="eyebrow">TR-YÖS · ${esc(t.math)}</p>
+          <h1 class="page">${esc(t.math)}</h1>
+          <p class="muted" style="margin-top:12px;max-width:520px">${esc(t.chapterLead)}</p>
+          <div class="tgrid" style="margin-top:24px">${cards||`<p class="muted">${esc(t.empty)}</p>`}</div>
+        </div>
+        <aside class="mock-card">
+          <p class="eyebrow">${esc(t.mockSection)}</p>
+          <h2>${esc(t.mockAsk)}</h2>
+          <p class="muted">${esc(t.mockBlurb)}</p>
+          <button class="btn" data-go="mathMocks">${esc(t.startMock)}</button>
+        </aside>
+      </div>`;
+  },
+  mathDrill(){return mathDrillView(route.ch, route.tn)},
+  mathMocks(){
+    const t=tx();
+    const list=(MATH.mocks||[]).map(m=>{
+      const st=M_STATE.tests[m.n]; const status=!st?"Not started":(st.completed?"Completed":"In progress");
+      const go=st&&st.completed?`data-mmopenresult="${m.n}"`:`data-mmstart="${m.n}"`;
+      return `<button class="iqcard" ${go}><span><b>Model Test ${m.n}</b><span class="status"> · ${m.questions.length} ${esc(t.questions)}</span></span><span class="status">${status}</span></button>`;
+    }).join("");
+    return `<div class="narrow"><button class="back" data-go="mathHome">← ${esc(t.math)}</button>
+      <p class="eyebrow" style="margin-top:24px">${esc(t.math)}</p>
+      <h1 class="page">${esc(t.mockTitle)}</h1>
+      <p class="muted" style="margin-top:10px">${esc(t.mockBlurb)}</p>
+      <div class="iqgrid" style="margin-top:22px">${list||`<p class="muted">${esc(t.empty)}</p>`}</div></div>`;
+  },
+  mathMockQuiz(){return mathMockQuiz(route.test)},
+  mathMockResult(){return mathMockResult(route.test)},
+  mathMockReview(){return mathMockReview(route.test)},
+  about(){
+    const t=tx();
+    return `<div class="narrow"><button class="back" data-go="home">← ${esc(t.back)}</button>
+      <p class="eyebrow" style="margin-top:24px">${esc(t.about)}</p>
+      <h1 class="page">${esc(t.aboutName)}</h1>
+      <div class="about-card" style="margin-top:22px">
+        <img class="about-photo" src="/about/abed.jpg" alt="Abed Newaz" width="148" height="148">
+        <p style="margin-top:14px">${esc(t.aboutRole)}</p>
+        <p style="margin-top:12px">${esc(t.aboutBody)}</p>
+        <p style="margin-top:12px">${esc(t.aboutBody2)}</p>
+        <p style="margin-top:18px"><a href="mailto:${esc(t.aboutMail)}">${esc(t.aboutMail)}</a></p>
+      </div></div>`;
+  },
+  iq(){
+    return `<div class="narrow"><button class="back" data-go="home">← Back</button>
+      <p class="eyebrow" style="margin-top:24px">IQ</p><h1 class="page">IQ</h1>
+      <div class="cta2" style="margin-top:28px">
+        <button class="cta" data-go="iqBasics"><span><span class="eyebrow">Option 1</span><span class="t">IQ Basics</span></span><span>→</span></button>
+        <button class="cta accent" data-go="iqTests"><span><span class="eyebrow">Option 2</span><span class="t">Model Tests</span></span><span>→</span></button>
+      </div></div>`;
+  },
+  iqBasics(){return `<div class="narrow"><button class="back" data-go="iq">← Back</button><p class="eyebrow" style="margin-top:24px">IQ · Basics</p><h1 class="page">Classes are coming soon.</h1></div>`},
+  iqTests(){
+    if(!loaded) return `<div class="narrow"><button class="back" data-go="iq">← Back</button><p class="eyebrow" style="margin-top:24px">IQ</p><h1 class="page">Model Tests</h1>${skeletons(6)}</div>`;
+    const cards=Array.from({length:11},(_,i)=>i+1).map(n=>{
+      const ready=!!iqTestData(n), st=IQ_STATE.tests[n], status=!ready?"Preparing":iqTestStatus(n);
+      const go=ready?(st&&st.completed?`data-iqopenresult="${n}"`:`data-iqstart="${n}"`):"";
+      return `<button class="iqcard" ${go} ${ready?"":"disabled"}><span><b>Model Test ${n}</b></span><span class="status">${status}</span></button>`;
+    }).join("");
+    return `<div class="narrow"><button class="back" data-go="iq">← Back</button>
+      <p class="eyebrow" style="margin-top:24px">IQ</p><h1 class="page">Model Tests</h1>
+      <p class="muted" style="margin-top:10px">11 papers · 26 questions each · review after you finish.</p>
+      <div class="iqgrid" style="margin-top:22px">${cards}</div></div>`;
+  },
+  iqQuiz(){return iqQuizView(route.test||1)},
+  iqResult(){return iqResultView(route.test||1)},
+  iqReview(){return iqReviewView(route.test||1)},
+  authSignIn(){return TRYOSAuth.view("signin")},
+  authSignUp(){return TRYOSAuth.view("signup")},
+  authForgot(){return TRYOSAuth.view("forgot")},
+  authReset(){return TRYOSAuth.view("reset")},
+  account(){return TRYOSAuth.view("account")},
+  profile(){return TRYOSAuth.view("profile")},
+  myReviews(){return TRYOSAuth.view("myreviews")}
+};
+
+let tickId=null;
+function placeInk(nav){
+  if(!nav) return;
+  let ink=nav.querySelector(".tab-ink");
+  if(!ink){ink=document.createElement("span"); ink.className="tab-ink"; nav.appendChild(ink)}
+  const on=nav.querySelector("button.on");
+  if(!on){ink.style.opacity="0"; return}
+  ink.style.opacity="1";
+  ink.style.width=on.offsetWidth+"px";
+  ink.style.transform="translateX("+on.offsetLeft+"px)";
+}
+function mountMotion(){
+  const nodes=$("#app").querySelectorAll(".home-hero,.cta,.tcard,.mock-card,.iqcard,.stat,.about-card,.iqgrid");
+  nodes.forEach((el,i)=>{el.classList.add("reveal"); el.style.setProperty("--i", String(Math.min(i,10)))});
+  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce){nodes.forEach(el=>el.classList.add("in")); return}
+  const io=new IntersectionObserver((ents)=>{
+    ents.forEach(en=>{
+      if(!en.isIntersecting) return;
+      en.target.classList.add("in");
+      io.unobserve(en.target);
+    });
+  },{threshold:0.12, rootMargin:"0px 0px -6% 0px"});
+  nodes.forEach(el=>io.observe(el));
+}
+function render(){
+  const t=tx(); document.documentElement.lang=S.lang;
+  $("#langs").innerHTML=LANGS.map(([k,l])=>`<button class="${S.lang===k?"on":""}" data-lang="${k}">${l}</button>`).join("");
+  const nav=[["home","home"],["mathHome","math"],["iq","iq"],["about","about"]];
+  const active=route.name==="home"?"home":(route.name.startsWith("math")||route.name==="mathHome"?"mathHome":(route.name.startsWith("iq")?"iq":(route.name==="about"?"about":route.name)));
+  $("#dnav").innerHTML=nav.map(([r,k])=>`<button class="${active===r?"on":""}" data-go="${r}">${esc(t[k])}</button>`).join("");
+  $("#bnav").innerHTML=[["home","home"],["mathHome","math"],["iq","iq"],["about","about"]].map(([r,k])=>`<button class="${active===r?"on":""}" data-go="${r}">${esc(t[k])}</button>`).join("");
+  const fn=views[route.name]||views.home;
+  $("#app").innerHTML=fn();
+  if(window.TRYOSAuth) TRYOSAuth.afterRender();
+  mountMotion();
+  requestAnimationFrame(()=>{placeInk($("#dnav")); placeInk($("#bnav"))});
+  if(tickId){clearInterval(tickId);tickId=null}
+  if(route.name==="mathDrill"){
+    const st=drillGet(route.ch,route.tn), c=chById(route.ch), test=c&&c.tests.find(x=>x.n===route.tn), q=test&&test.questions[st.index];
+    if(q && !st.revealed[q.id]){
+      tickId=setInterval(()=>{const el=$("#liveTimer"); if(!el) return; el.textContent=fmtTime(Date.now()-st.qStart);},250);
+    }
+  }
+}
+
+document.addEventListener("click",e=>{
+  const el=e.target.closest("[data-auth],[data-theme-toggle],[data-lang],[data-go],[data-mdrill],[data-mdropt],[data-mdrnext],[data-mdrprev],[data-mmstart],[data-mmopenresult],[data-mmopt],[data-mmnext],[data-mmprev],[data-mmreview],[data-mmrestart],[data-mmrevprev],[data-mmrevnext],[data-mmrevjump],[data-iqhome],[data-iqtestlist],[data-iqstart],[data-iqopenresult],[data-iqopt],[data-iqnext],[data-iqprev],[data-iqback],[data-iqreview],[data-iqrestart],[data-iqrevprev],[data-iqrevnext],[data-iqrevjump],#brand");
+  if(!el)return; const d=el.dataset;
+  if(d.themeToggle!==undefined){S.theme=document.documentElement.dataset.theme==="light"?"dark":"light";applyTheme();save();return}
+  if(d.auth && window.TRYOSAuth){TRYOSAuth.onClick(d);return}
+  if(el.id==="brand") return go("home");
+  if(d.lang){S.lang=d.lang;save();return render()}
+  if(d.mdrill){const [ch,tn]=d.mdrill.split(":").map(Number); const st=drillGet(ch,tn); st.qStart=Date.now(); saveM(); return go("mathDrill",{ch,tn})}
+  if(d.mdropt){const st=drillGet(route.ch,route.tn),c=chById(route.ch),test=c.tests.find(x=>x.n===route.tn),q=test.questions[st.index]; if(st.revealed[q.id]) return; st.picks[q.id]=d.mdropt; st.revealed[q.id]=true; st.times[q.id]=Date.now()-st.qStart; saveM(); return render()}
+  if(d.mdrnext){const st=drillGet(route.ch,route.tn),c=chById(route.ch),test=c.tests.find(x=>x.n===route.tn); if(st.index<test.questions.length-1){st.index++; st.qStart=Date.now(); saveM(); return render()} st.completed=true; saveM(); return go("mathHome")}
+  if(d.mdrprev){const st=drillGet(route.ch,route.tn); st.index=Math.max(0,st.index-1); st.qStart=Date.now(); saveM(); return render()}
+  if(d.mmstart){mockGet(+d.mmstart); return go("mathMockQuiz",{test:+d.mmstart})}
+  if(d.mmopenresult) return go("mathMockResult",{test:+d.mmopenresult});
+  if(d.mmopt){const n=route.test,dta=mockData(n),st=mockGet(n); if(st.completed) return; const q=dta.questions[st.index]; st.picks[q.id]=d.mmopt; saveM(); return render()}
+  if(d.mmnext){const n=route.test,dta=mockData(n),st=mockGet(n); if(st.index<dta.questions.length-1){st.index++; saveM(); return render()} st.completed=true; saveM(); return go("mathMockResult",{test:n})}
+  if(d.mmprev){const st=mockGet(route.test); st.index=Math.max(0,st.index-1); saveM(); return render()}
+  if(d.mmreview){mockGet(route.test).reviewIndex=0; saveM(); return go("mathMockReview",{test:route.test})}
+  if(d.mmrevprev){const st=mockGet(route.test); st.reviewIndex=Math.max(0,(st.reviewIndex||0)-1); saveM(); return render()}
+  if(d.mmrevnext){const n=route.test,dta=mockData(n),st=mockGet(n); if((st.reviewIndex||0)<dta.questions.length-1){st.reviewIndex=(st.reviewIndex||0)+1; saveM(); return render()} return go("mathMockResult",{test:n})}
+  if(d.mmrevjump!==undefined){mockGet(route.test).reviewIndex=+d.mmrevjump; saveM(); return render()}
+  if(d.mmrestart){M_STATE.tests[route.test]={index:0,picks:{},completed:false,reviewIndex:0}; saveM(); return go("mathMockQuiz",{test:route.test})}
+  if(d.iqhome) return go("iqBasics");
+  if(d.iqtestlist) return go("iqTests");
+  if(d.iqstart){const n=+d.iqstart; if(!iqTestData(n)) return; iqGet(n); return go("iqQuiz",{test:n})}
+  if(d.iqopenresult) return go("iqResult",{test:+d.iqopenresult});
+  if(d.iqopt){const n=route.test||1,dta=iqTestData(n),st=iqGet(n); if(st.completed) return; const q=dta.questions[st.index]; st.picks[q.originalId]=d.iqopt; saveIQ(); return render()}
+  if(d.iqnext){const n=route.test||1,dta=iqTestData(n),st=iqGet(n); if(st.index<dta.questions.length-1){st.index++; saveIQ(); return render()} st.completed=true; saveIQ(); return go("iqResult",{test:n})}
+  if(d.iqprev){const n=route.test||1,st=iqGet(n); st.index=Math.max(0,st.index-1); saveIQ(); return render()}
+  if(d.iqback) return go("iqTests");
+  if(d.iqreview){iqGet(route.test||1).reviewIndex=0; saveIQ(); return go("iqReview",{test:route.test||1})}
+  if(d.iqrevprev){const st=iqGet(route.test||1); st.reviewIndex=Math.max(0,(st.reviewIndex||0)-1); saveIQ(); return render()}
+  if(d.iqrevnext){const n=route.test||1,dta=iqTestData(n),st=iqGet(n); if((st.reviewIndex||0)<dta.questions.length-1){st.reviewIndex=(st.reviewIndex||0)+1; saveIQ(); return render()} return go("iqResult",{test:n})}
+  if(d.iqrevjump!==undefined){iqGet(route.test||1).reviewIndex=+d.iqrevjump; saveIQ(); return render()}
+  if(d.iqrestart){const n=route.test||1; IQ_STATE.tests[n]={index:0,picks:{},completed:false,reviewIndex:0}; saveIQ(); return go("iqQuiz",{test:n})}
+  if(d.go){
+    const keep={};
+    if(["iqResult","iqReview","iqQuiz","mathMockResult","mathMockReview","mathMockQuiz","mathDrill"].includes(d.go)){
+      if(route.test!=null) keep.test=route.test;
+      if(route.ch!=null) keep.ch=route.ch;
+      if(route.tn!=null) keep.tn=route.tn;
+    }
+    return go(d.go, keep);
+  }
+});
+
+applyTheme();
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}))}
+render();
+Promise.all([loadIQ(), loadMATH()]).then(()=>{loaded=true; if(route.name==="mathHome"||route.name==="mathMocks") render()});
+TRYOSAuth.init();
+window.addEventListener("popstate",()=>{route={name:AUTH_PATHS[location.pathname]||"home"};render()});
+window.addEventListener("resize",()=>{placeInk($("#dnav")); placeInk($("#bnav"))});
+</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 /* TRYOS Prep service worker — app shell + CDN assets cached so it also works offline.
    Bump CACHE when you change index.html so users get the new version. */
-const CACHE = "tryos-prep-v22-auth";
-const SHELL = ["/", "/index.html", "/manifest.webmanifest", "/about/abed.jpg", "/auth.js", "/supabase-config.js",
+const CACHE = "tryos-prep-v25-fullscore";
+const SHELL = ["/", "/index.html", "/manifest.webmanifest", "/about/abed.jpg", "/auth.js", "/full.js", "/supabase-config.js", "/full/bank.json",
   "/icons/icon-192.png", "/icons/icon-512.png", "/icons/maskable-512.png", "/icons/apple-touch-icon.png", "/iq/test1.json", "/iq/test2.json", "/iq/test3.json", "/iq/test4.json", "/iq/test5.json", "/iq/test6.json", "/iq/test7.json", "/iq/test8.json", "/iq/test9.json", "/iq/test10.json", "/iq/test11.json"];
 const CDN_HOSTS = ["cdn.jsdelivr.net", "cdnjs.cloudflare.com", "fonts.googleapis.com", "fonts.gstatic.com"];
 

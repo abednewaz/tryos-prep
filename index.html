@@ -221,6 +221,40 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
   *,body:before,body:after,.hero-art i,.mock-card:before{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
 }
+
+/* Full Length Test */
+.fl-alert{margin-top:16px;padding:14px 16px;border-radius:14px;border:1px solid rgba(180,70,70,.45);background:rgba(160,50,50,.14);color:#e8a0a0;font-size:14px;line-height:1.55;font-weight:500}
+html[data-theme="light"] .fl-alert{color:#8b1e1e;background:rgba(200,60,60,.1);border-color:rgba(180,60,60,.35)}
+.fl-last-score{margin-top:8px;font-size:14px;color:var(--fg);line-height:1.45}
+.fl-last-score b{color:var(--sage-deep)}
+
+.fl-rules{margin:12px 0 0;padding-left:18px;line-height:1.65;color:var(--muted)}
+.fl-rules li{margin:6px 0}
+.fl-rules b{color:var(--fg)}
+.fl-qbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.fl-timer-wrap{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--raised)}
+.fl-timer{font-variant-numeric:tabular-nums;font-size:18px;font-weight:700;letter-spacing:.04em;color:var(--fg)}
+.fl-timer.warn{color:#c9a227}
+.fl-timer.danger{color:#d46a6a}
+.fl-meta{margin-top:10px;font-size:13px;color:var(--muted)}
+.fl-palette{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.fl-dot{min-width:34px;height:34px;padding:0 6px;border-radius:10px;border:1px solid var(--border);font-size:12px;color:var(--muted);background:var(--raised)}
+.fl-dot.cur{outline:2px solid var(--sage);color:var(--fg)}
+.fl-dot.ans{background:var(--sage-soft);color:var(--sage-deep);border-color:transparent}
+.fl-dot.ok{background:rgba(120,160,120,.25);color:var(--fg)}
+.fl-dot.bad{background:rgba(180,90,90,.2);color:var(--fg)}
+.fl-dot.open{opacity:.9}
+.fl-badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600}
+.fl-badge.ok{background:rgba(120,160,120,.25)}
+.fl-badge.bad{background:rgba(180,90,90,.2)}
+.fl-badge.open{background:var(--raised);border:1px solid var(--border)}
+.iqopt.ok{border-color:rgba(120,160,120,.55);background:rgba(120,160,120,.12)}
+.iqopt.bad{border-color:rgba(180,90,90,.45);background:rgba(180,90,90,.1)}
+@media(max-width:640px){
+  .fl-dot{min-width:30px;height:30px;font-size:11px}
+  .fl-timer{font-size:16px}
+}
+
 </style>
 
 </head>
@@ -244,13 +278,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.js"></script>
 <script src="/supabase-config.js"></script>
 <script src="/auth.js"></script>
+<script src="/full.js"></script>
 <script>
 const LANGS=[["bn","বাং"],["en","EN"],["tr","TR"]];
 const UI={
-  en:{app:"TRYOS Prep",home:"Home",math:"Math",iq:"IQ",about:"About Us",back:"Back",
+  en:{app:"TRYOS Prep",home:"Home",math:"Math",iq:"IQ",full:"Full Length",fullShort:"Full",about:"About Us",back:"Back",
     whatPractice:"TRYÖS Prep is a practice platform dedicated to TRYÖS aspirants, designed to help students to improve their mathematical, IQ skills, and prepare for the exam with confidence.",
     homeMore:"Explore chapter-wise practice sessions, judge yourself with mock tests, and identify areas where you can improve.",
     homeMotto:"Practice more and more. No pain, no gain 💪",
+    fullTitle:"Full Length Test",fullIntro:"Three complete timed mocks. 40 IQ, then 40 Math. 100 minutes. Total 500 marks.",flNotStarted:"Not started",flInProgress:"In progress",flCompleted:"Completed",startExam:"Start exam",continueExam:"Continue",viewResult:"View result",beginExam:"Begin exam",flRules:"Exam instructions",flRuleMcq:"All questions are multiple choice (A–E).",flRuleNav:"You may move between questions and change answers before you submit.",flRuleUnans:"Unanswered questions stay unanswered.",flRuleTimer:"The countdown runs until you submit or time ends.",flRuleAuto:"When time reaches 00:00 the exam submits automatically.",flRuleNoKey:"Correct answers are shown only after submission.",flRuleNote:"These are practice-exam instructions for this site, not an official exam board document.",timeLeft:"Time left",question:"Question",of:"of",answered:"answered",previous:"Previous",next:"Next",submitExam:"Submit exam",confirmSubmit:"Yes, submit",keepWorking:"Keep working",flConfirmUnans:"You still have X unanswered questions. Submit anyway?",flConfirmAll:"You answered every question. Submit the exam?",score:"Score",correct:"Correct",wrong:"Wrong",unanswered:"Unanswered",accuracy:"Accuracy",timeUsed:"Time used",reviewAnswers:"Review answers",restart:"Restart",review:"Review",selected:"Selected",yourPick:"Your answer",exit:"Exit",minutes:"min",questions:"questions",result:"Result",
+    lastScore:"Last score",retake:"Retake",marks:"marks",penalty:"Penalty",flGeometryNote:"This exam doesn't contain Geometry. We are very sorry for the inconvenience. We will add the geometry section very soon. This exam doesn't ensure your guaranteed marks in TRYOS. It's just a practice test.",flRulePts:"Each IQ question: 5.625 marks. Each Math question: 6.875 marks.",flRulePen:"Wrong answer: no marks for that question, plus a 0.25 mark penalty.",flRuleExit:"Exit, closing the tab, or leaving the page will discard this attempt. Only a finished exam saves your score.",
     chapterLead:"Chapter-wise practice is here. Scroll down and start the drill.",
     mockAsk:"Ready for a full paper?", mockBlurb:"Random questions from every chapter. No instant answers — review after you finish.",
     startMock:"Start mock test", mockTitle:"Math Model Tests", mockSection:"Model tests",
@@ -503,9 +540,10 @@ const views={
         <p class="motto">${esc(t.homeMotto)}</p>
         <i></i><i></i>
       </div></div>
-      <div class="cta2" style="margin-top:28px">
+            <div class="cta2" style="margin-top:28px">
         <button class="cta accent" data-go="mathHome"><span><span class="eyebrow">${esc(t.math)}</span><span class="t">${esc(t.math)}</span></span><span>→</span></button>
         <button class="cta" data-go="iq"><span><span class="eyebrow">${esc(t.iq)}</span><span class="t">IQ</span></span><span>→</span></button>
+        <button class="cta" data-go="fullHome"><span><span class="eyebrow">${esc(t.full)}</span><span class="t">${esc(t.fullTitle||t.full)}</span></span><span>→</span></button>
       </div>
       ${window.TRYOSAuth ? TRYOSAuth.reviewsSection() : ""}`;
   },
@@ -590,6 +628,12 @@ const views={
   iqQuiz(){return iqQuizView(route.test||1)},
   iqResult(){return iqResultView(route.test||1)},
   iqReview(){return iqReviewView(route.test||1)},
+  fullHome(){return window.TRYOSFull?TRYOSFull.view("fullHome"):""},
+  fullRules(){return window.TRYOSFull?TRYOSFull.view("fullRules"):""},
+  fullQuiz(){return window.TRYOSFull?TRYOSFull.view("fullQuiz"):""},
+  fullConfirm(){return window.TRYOSFull?TRYOSFull.view("fullConfirm"):""},
+  fullResult(){return window.TRYOSFull?TRYOSFull.view("fullResult"):""},
+  fullReview(){return window.TRYOSFull?TRYOSFull.view("fullReview"):""},
   authSignIn(){return TRYOSAuth.view("signin")},
   authSignUp(){return TRYOSAuth.view("signup")},
   authForgot(){return TRYOSAuth.view("forgot")},
@@ -627,13 +671,14 @@ function mountMotion(){
 function render(){
   const t=tx(); document.documentElement.lang=S.lang;
   $("#langs").innerHTML=LANGS.map(([k,l])=>`<button class="${S.lang===k?"on":""}" data-lang="${k}">${l}</button>`).join("");
-  const nav=[["home","home"],["mathHome","math"],["iq","iq"],["about","about"]];
-  const active=route.name==="home"?"home":(route.name.startsWith("math")||route.name==="mathHome"?"mathHome":(route.name.startsWith("iq")?"iq":(route.name==="about"?"about":route.name)));
+  const nav=[["home","home"],["mathHome","math"],["iq","iq"],["fullHome","full"],["about","about"]];
+  const active=route.name==="home"?"home":(route.name.startsWith("math")||route.name==="mathHome"?"mathHome":(route.name.startsWith("iq")?"iq":(route.name.startsWith("full")?"fullHome":(route.name==="about"?"about":route.name))));
   $("#dnav").innerHTML=nav.map(([r,k])=>`<button class="${active===r?"on":""}" data-go="${r}">${esc(t[k])}</button>`).join("");
-  $("#bnav").innerHTML=[["home","home"],["mathHome","math"],["iq","iq"],["about","about"]].map(([r,k])=>`<button class="${active===r?"on":""}" data-go="${r}">${esc(t[k])}</button>`).join("");
+  $("#bnav").innerHTML=[["home","home"],["mathHome","math"],["iq","iq"],["fullHome","fullShort"],["about","about"]].map(([r,k])=>`<button class="${active===r?"on":""}" data-go="${r}">${esc(t[k]||t.full)}</button>`).join("");
   const fn=views[route.name]||views.home;
   $("#app").innerHTML=fn();
   if(window.TRYOSAuth) TRYOSAuth.afterRender();
+  if(window.TRYOSFull) TRYOSFull.afterRender();
   mountMotion();
   requestAnimationFrame(()=>{placeInk($("#dnav")); placeInk($("#bnav"))});
   if(tickId){clearInterval(tickId);tickId=null}
@@ -646,11 +691,12 @@ function render(){
 }
 
 document.addEventListener("click",e=>{
-  const el=e.target.closest("[data-auth],[data-theme-toggle],[data-lang],[data-go],[data-mdrill],[data-mdropt],[data-mdrnext],[data-mdrprev],[data-mmstart],[data-mmopenresult],[data-mmopt],[data-mmnext],[data-mmprev],[data-mmreview],[data-mmrestart],[data-mmrevprev],[data-mmrevnext],[data-mmrevjump],[data-iqhome],[data-iqtestlist],[data-iqstart],[data-iqopenresult],[data-iqopt],[data-iqnext],[data-iqprev],[data-iqback],[data-iqreview],[data-iqrestart],[data-iqrevprev],[data-iqrevnext],[data-iqrevjump],#brand");
+  const el=e.target.closest("[data-auth],[data-theme-toggle],[data-lang],[data-go],[data-mdrill],[data-mdropt],[data-mdrnext],[data-mdrprev],[data-mmstart],[data-mmopenresult],[data-mmopt],[data-mmnext],[data-mmprev],[data-mmreview],[data-mmrestart],[data-mmrevprev],[data-mmrevnext],[data-mmrevjump],[data-iqhome],[data-iqtestlist],[data-iqstart],[data-iqopenresult],[data-iqopt],[data-iqnext],[data-iqprev],[data-iqback],[data-iqreview],[data-iqrestart],[data-iqrevprev],[data-iqrevnext],[data-iqrevjump],[data-flrules],[data-flstart],[data-flresume],[data-flopenresult],[data-flopt],[data-flnext],[data-flprev],[data-fljump],[data-flconfirm],[data-flsubmit],[data-flreview],[data-flrevprev],[data-flrevnext],[data-flrevjump],[data-flrestart],#brand");
   if(!el)return; const d=el.dataset;
   if(d.themeToggle!==undefined){S.theme=document.documentElement.dataset.theme==="light"?"dark":"light";applyTheme();save();return}
   if(d.auth && window.TRYOSAuth){TRYOSAuth.onClick(d);return}
-  if(el.id==="brand") return go("home");
+  if(window.TRYOSFull && (d.flrules!==undefined||d.flstart!==undefined||d.flresume!==undefined||d.flopenresult!==undefined||d.flopt!==undefined||d.flnext!==undefined||d.flprev!==undefined||d.fljump!==undefined||d.flconfirm!==undefined||d.flsubmit!==undefined||d.flreview!==undefined||d.flrevprev!==undefined||d.flrevnext!==undefined||d.flrevjump!==undefined||d.flrestart!==undefined||d.flexit!==undefined)){TRYOSFull.onClick(d);return}
+  if(el.id==="brand"){if(window.TRYOSFull&&TRYOSFull.discardActive&&(route.name==="fullQuiz"||route.name==="fullConfirm"))TRYOSFull.discardActive();return go("home")}
   if(d.lang){S.lang=d.lang;save();return render()}
   if(d.mdrill){const [ch,tn]=d.mdrill.split(":").map(Number); const st=drillGet(ch,tn); st.qStart=Date.now(); saveM(); return go("mathDrill",{ch,tn})}
   if(d.mdropt){const st=drillGet(route.ch,route.tn),c=chById(route.ch),test=c.tests.find(x=>x.n===route.tn),q=test.questions[st.index]; if(st.revealed[q.id]) return; st.picks[q.id]=d.mdropt; st.revealed[q.id]=true; st.times[q.id]=Date.now()-st.qStart; saveM(); return render()}
@@ -680,8 +726,11 @@ document.addEventListener("click",e=>{
   if(d.iqrevjump!==undefined){iqGet(route.test||1).reviewIndex=+d.iqrevjump; saveIQ(); return render()}
   if(d.iqrestart){const n=route.test||1; IQ_STATE.tests[n]={index:0,picks:{},completed:false,reviewIndex:0}; saveIQ(); return go("iqQuiz",{test:n})}
   if(d.go){
+    if(window.TRYOSFull && TRYOSFull.discardActive && (route.name==="fullQuiz"||route.name==="fullConfirm") && !String(d.go).startsWith("full")){
+      TRYOSFull.discardActive();
+    }
     const keep={};
-    if(["iqResult","iqReview","iqQuiz","mathMockResult","mathMockReview","mathMockQuiz","mathDrill"].includes(d.go)){
+    if(["iqResult","iqReview","iqQuiz","mathMockResult","mathMockReview","mathMockQuiz","mathDrill","fullQuiz","fullRules","fullConfirm","fullResult","fullReview"].includes(d.go)){
       if(route.test!=null) keep.test=route.test;
       if(route.ch!=null) keep.ch=route.ch;
       if(route.tn!=null) keep.tn=route.tn;
@@ -693,7 +742,7 @@ document.addEventListener("click",e=>{
 applyTheme();
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}))}
 render();
-Promise.all([loadIQ(), loadMATH()]).then(()=>{loaded=true; if(route.name==="mathHome"||route.name==="mathMocks") render()});
+Promise.all([loadIQ(), loadMATH(), (window.TRYOSFull?TRYOSFull.load():Promise.resolve())]).then(()=>{loaded=true; if(route.name==="mathHome"||route.name==="mathMocks"||String(route.name||"").startsWith("full")) render()});
 TRYOSAuth.init();
 window.addEventListener("popstate",()=>{route={name:AUTH_PATHS[location.pathname]||"home"};render()});
 window.addEventListener("resize",()=>{placeInk($("#dnav")); placeInk($("#bnav"))});
